@@ -1,0 +1,23 @@
+<nav mat-tab-nav-bar animationDuration="0ms">
+    <a mat-tab-link routerLink="/notesList/title" routerLinkActive #title="routerLinkActive" [active]="title.isActive">Titel</a>
+    <a mat-tab-link routerLink="/notesList/theme" routerLinkActive #theme="routerLinkActive" [active]="theme.isActive">Thema</a>
+    <a mat-tab-link routerLink="/notesList/moddate" routerLinkActive #moddate="routerLinkActive" [active]="moddate.isActive">Änderungsdatum</a>
+</nav>
+
+
+<mat-nav-list *ngFor="let note of notes">
+    <mat-list-item role="listitem" (click)="changeNote(note)">
+        <mat-card-content>
+            <mat-card-title>{{note?.title + " (" + note?.theme?.description + ")"}}</mat-card-title>
+            <div mat-line>Von: {{note?.user?.username}}</div>
+            <div mat-line>Erstellt: {{note?.creationDate | date}} Geändert: {{note?.modificationDate ? (note?.modificationDate | date) : "Nicht definiert"}}</div>
+            <div mat-line>{{note?.text}}</div>
+        </mat-card-content>
+
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-nav-list>
+
+<button style="position: fixed; bottom: 0; right: 0; margin: 30px" mat-fab color="accent" type="button" (click)="openDialog()">
+  <mat-icon>add</mat-icon>
+</button>

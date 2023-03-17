@@ -1,0 +1,47 @@
+<form [formGroup]="noteForm">
+  <div mat-dialog-content fxLayout="column">
+    <mat-form-field [style.width.%]=100 style="font-size: 30px;">
+      <input matInput placeholder="Title" type="text" fxFlex="100" formControlName="title">
+      <mat-error>Required</mat-error>
+    </mat-form-field>
+
+    <div fxFlex fxLayout="row">
+      <mat-form-field fxFlex appearance="legacy">
+        <mat-label>Thema</mat-label>
+
+        <mat-select name="theme" formControlName="theme">
+          <mat-option [value]="theme.description" *ngFor="let theme of themes">
+            {{theme.description}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <button mat-mini-fab color="accent" type="button" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div fxFlex fxLayout="row" style="margin-bottom: 20px;">
+      <div fxLayout="column" style="width: 50%;">
+        Erstellt:{{!data.new ? (data.note.creationDate | date) : currentDate | date}}
+      </div>
+      <div fxFlex fxLayout="column" style="width: 50%;">
+        Geändert:{{data.note?.modificationDate ? (data.note.modificationDate | date) : "nicht definiert"}}
+      </div>
+    </div>
+
+    <mat-form-field class="example-full-width" appearance="legacy">
+      <mat-label>Text</mat-label>
+      <textarea matInput placeholder="Notiz..." style="height: 200px;" formControlName="text"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions align="center">
+    <button mat-raised-button fxFlex fxLayout="column" fxLayoutAlign="center center" type="submit"
+      [disabled]="!noteForm.valid" (click)="register()">{{this.data.new ? "Speichern" : "Ändern"}}</button>
+    <button mat-raised-button (click)=" this.dialogRef.close();" fxFlex fxLayout="column" fxLayoutAlign="center center">Zurück</button>
+    <button mat-raised-button fxFlex fxLayout="column" fxLayoutAlign="center center" (click)="remove()" *ngIf="!data.new">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</form>

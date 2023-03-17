@@ -1,0 +1,9 @@
+<mat-nav-list role="list" *ngFor="let theme of themes">
+  <mat-list-item role="listitem" (click)="changeTheme(theme)">{{theme?.description}}</mat-list-item>
+  <mat-divider></mat-divider>
+</mat-nav-list>
+
+<button style="position: fixed; bottom: 0; right: 0; margin: 30px" mat-fab color="accent" type="button"
+  (click)="openDialog()">
+  <mat-icon>add</mat-icon>
+</button>

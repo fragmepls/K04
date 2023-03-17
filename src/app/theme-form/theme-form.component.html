@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Themeneingabe</h1>
+<div mat-dialog-content>
+  <form  [formGroup]="themeForm">
+  <mat-form-field appearance="legacy" [style.width.%]=100 >
+    <mat-label>Themenbeschreibung</mat-label>
+    <input matInput cdkFocusInitial [ngModel]="data.theme?.description ? data.theme.description : ''"
+      formControlName="description">
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-error *ngIf="themeForm.controls.description.hasError('themeExists')">Dises Thema existiert bereits</mat-error>
+    <mat-error *ngIf="themeForm.controls.description.hasError('required')">Required</mat-error>
+  </mat-form-field>
+</form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="register()" type="submit" [disabled]="!themeForm.valid">{{this.data.new ? "Hinzufügen" : "Ändern"}}</button>
+  <button mat-raised-button (click)="this.dialogRef.close();">Zurück</button>
+  <button mat-raised-button *ngIf="!data.new" (click)="remove()">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
